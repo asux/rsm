@@ -1,2 +1,7 @@
+require 'pathname'
+require 'thor'
+require 'thor/group'
+require 'thor/util'
+require 'rsm/actions'
 require 'rsm/install'
 require 'rsm/runner'
