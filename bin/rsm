@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'rsm'
+
+ARGV[0] = 'help' unless ARGV.first
+
+Rsm::Runner.start
