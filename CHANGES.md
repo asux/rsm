@@ -1,15 +1,16 @@
-Edge (TBA)
-=======================
-  * Methods in `Rsm::Actions` use `name` attribute
+# Edge / TBA
 
-0.1.alpha2 (2011-08-29)
-=======================
+  * Methods in `Rsm::Actions` use `name` attribute
+  * Using autload instead of require
+
+# 0.1.alpha2 / August 29, 2011
+
   * Splitted Nginx and Rails application tasks
   * Using relative paths
   * Fixed application root in unicorn template
 
-0.1.alpha1 (2011-08-28)
-=======================
+# 0.1.alpha1 / August 28, 2011
+
   * Created tasks:
     - create Nginx virtual server config from template
     - enable Nginx virtual server config
