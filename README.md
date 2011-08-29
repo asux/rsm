@@ -37,6 +37,11 @@ Install from RubyGems:
 
     # gem install rsm --pre # usually most operations requires super-user access
 
+Ussage
+-----
+
+Run `rsm -T` for details
+
 Documentation
 -------------
 

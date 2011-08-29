@@ -1,7 +1,8 @@
-# Edge / TBA
+# 0.1.beta1 / August 30, 2011
 
   * Methods in `Rsm::Actions` use `name` attribute
   * Using autload instead of require
+  * Updated gemsepc. Added Gemfile, Rakefile
 
 # 0.1.alpha2 / August 29, 2011
 
