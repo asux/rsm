@@ -33,11 +33,11 @@ module Rsm
         if options[:git]
           run "git clone #{options[:git]} #{application_root}"
         elsif options[:tgz]
-          fetch_temporary_archive(options[:tgz], :gz)
-          unpack_compressed_archive(:gz)
+          fetch_temporary_archive(name, options[:tgz], :gz)
+          unpack_compressed_archive(name, :gz)
         elsif options[:tbz2]
-          fetch_temporary_archive(options[:tbz2], :bz2)
-          unpack_compessed_archive(:bz2)
+          fetch_temporary_archive(name, options[:tbz2], :bz2)
+          unpack_compessed_archive(name, :bz2)
         else
           say "No source URI specified. Use --git, --tgz or --tbz2 option with URI passed"
           exit 1

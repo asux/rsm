@@ -33,8 +33,9 @@ Source code has MIT license
 Installation
 ------------
 
-Install from RubyGems
-  # gem install rsm --pre # usually most operations requires super-user access
+Install from RubyGems:
+
+    # gem install rsm --pre # usually most operations requires super-user access
 
 Documentation
 -------------
