@@ -29,23 +29,25 @@ module Rsm
       end
 
       def download
-        empty_directory "."
-        if options[:git]
-          run "git clone #{options[:git]} #{application_root}"
-        elsif options[:tgz]
-          fetch_temporary_archive(name, options[:tgz], :gz)
-          unpack_compressed_archive(name, :gz)
-        elsif options[:tbz2]
-          fetch_temporary_archive(name, options[:tbz2], :bz2)
-          unpack_compessed_archive(name, :bz2)
-        else
-          say "No source URI specified. Use --git, --tgz or --tbz2 option with URI passed"
-          exit 1
+        empty_directory application_root
+        inside application_root do
+          if options[:git]
+            run "git clone #{options[:git]} ."
+          elsif options[:tgz]
+            fetch_temporary_archive(name, options[:tgz], :gz)
+            unpack_compressed_archive(name, :gz)
+          elsif options[:tbz2]
+            fetch_temporary_archive(name, options[:tbz2], :bz2)
+            unpack_compessed_archive(name, :bz2)
+          else
+            say "No source URI specified. Use --git, --tgz or --tbz2 option with URI passed"
+            exit 1
+          end
         end
       end
 
       def permissions
-        inside destination_root do
+        inside application_root do
           empty_directory "log"
           empty_directory "tmp"
           run "chown #{options[:user]}:#{options[:group]} -R ."
