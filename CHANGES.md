@@ -1,3 +1,11 @@
+# 0.1.beta2 / August 31, 2011
+
+  * Some code moved to `Rsm::Install::Base`
+  * Nginx config template uses `application_root` variable
+  * Changed injection in nginx.conf
+  * Command `unicorn` accepts environment option
+  * Capistrano-aware `application_root`
+
 # 0.1.beta1 / August 30, 2011
 
   * Methods in `Rsm::Actions` use `name` attribute

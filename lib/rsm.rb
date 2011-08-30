@@ -6,6 +6,8 @@ require 'thor/util'
 module Rsm
   autoload :Actions, 'rsm/actions'
   autoload :Runner, 'rsm/runner'
+  autoload :Base, 'rsm/base'
+  autoload :Unicorn, 'rsm/unicorn'
 
   module Install
     autoload :Nginx, 'rsm/install/nginx'
