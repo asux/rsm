@@ -1,5 +1,5 @@
 upstream <%= name %>_server {
-   server unix:/var/www/<%= name %>/tmp/sockets/unicorn.sock fail_timeout=0; # Местоположение сокета должно совпадать с настройками файла config/unicorn.rb от корня вашего приложения.
+   server unix:<%= application_root %>/tmp/sockets/unicorn.sock fail_timeout=0; # Местоположение сокета должно совпадать с настройками файла config/unicorn.rb от корня вашего приложения.
 }
 
 server {
@@ -8,12 +8,12 @@ server {
 
     client_max_body_size 1G; # Максимальный размер тела запроса (а простым языком - ограничение на размер заливаемого на сервер файла).
     keepalive_timeout 5;
-    root /var/www/<%= name %>/public; # Эта строка всегда должна указывать в директорию public Rails приложения. А current там потому что деплой происходит через Capistrano
+    root <%= application_root %>/public; # Эта строка всегда должна указывать в директорию public Rails приложения. А current там потому что деплой происходит через Capistrano
 
     try_files $uri/index.html $uri.html $uri @<%= name %>; # Имя переменной не важно - главное, чтобы в блоке location ниже было аналогичное
 
-    access_log /var/www/<%= name %>/log/access.log;
-    error_log /var/www/<%= name %>/log/error.log;
+    access_log <%= application_root %>/log/access.log;
+    error_log <%= application_root %>/log/error.log;
 
     location @<%= name %> {
         proxy_pass http://<%= name %>_server; # Часть после http:// должна полностью соответствовать имени в блоке upstream выше.
@@ -24,7 +24,7 @@ server {
 
     error_page 500 502 503 504 /500.html;
     location = /500.html {
-      root /var/www/<%= name %>/public;
+      root <%= application_root %>/public;
     }
 }
 
