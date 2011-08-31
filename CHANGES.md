@@ -1,6 +1,8 @@
-# 0.1.beta5 / August 31, 2011
+# 0.1.rc1 / August 31, 2011
 
   * Refactored tasks heirarchy
+  * Fixed class options in `Rsm::Base`
+  * Unicorn: added `start` and `stop` commands
 
 # 0.1.beta4 / August 31, 2011
 

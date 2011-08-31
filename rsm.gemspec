@@ -24,6 +24,5 @@ Gem::Specification.new do |s|
   s.requirements << 'A coreutils installed'
   s.requirements << 'A Git installed'
   s.requirements << 'A Nginx installed'
-  s.requirements << 'You must have super-user access'
   s.add_dependency 'thor', '~> 0.14.6'
 end

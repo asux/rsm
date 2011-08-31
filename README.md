@@ -34,12 +34,18 @@ Installation
 
 Install from RubyGems:
 
-    $ gem install rsm --pre
+  $ gem install rsm --pre
 
 Ussage
 -----
 
-Run `rsm -T` for details
+List avalable tasks:
+  
+  $ rsm -T
+  
+Help for certain task:
+
+  $ rsm help TASK
 
 Documentation
 -------------
