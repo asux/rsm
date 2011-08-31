@@ -1,7 +1,11 @@
-# 0.1.beta3 / August 31, 2011
+# 0.1.beta4 / August 31, 2011
 
   * `unicorn` command as method in `Runner`
   * Added `environment` option for unicorn
+
+# 0.1.beta3 / August 31, 2011
+
+  *yanked*
 
 # 0.1.beta2 / August 31, 2011
 
