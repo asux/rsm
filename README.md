@@ -7,16 +7,12 @@ RSM created for make easier some actons on server like:
   * manipulation of files
   * running commands
 
-and other Rails application tasks.
-
 This version can:
 
   * create Nginx virtual server config from template
-  * enable Nginx virtual server config
+  * automaticly enable Nginx virtual server config
   * clone from Git repo or download and unpack Rails application from TGZ or TBZ2 archive
-  * set permission for Rails application
-  * create Unicorn config from template
-  * run unicorn server
+  * start and stop unicorn server
 
 Homepage
 --------
