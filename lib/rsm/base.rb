@@ -7,11 +7,16 @@ module Rsm
 
     argument :name
 
-    class_option :apps_root, :defualt => "/var/www", :aliases => "-r", :desc => "Rails apps root (default: /var/www)"
-    class_option :capistrano, :defualt => false, :aliases => "-c", :desc => "Application's Capistrano stage"
+    class_option :apps_root, :default => "/var/www", :aliases => "-r", :desc => "Rails apps root"
+    class_option :capistrano, :default => false, :aliases => "-c", :desc => "Application's Capistrano stage"
 
+
+    def self.template_path
+      Thor::Util.snake_case(name.to_s).squeeze(":").gsub(":", "/")
+    end
+    
     def self.source_root
-      File.expand_path('../../../templates', __FILE__)
+      File.expand_path("../../../templates/#{template_path}", __FILE__)
     end
 
     def application_root

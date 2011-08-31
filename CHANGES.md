@@ -1,3 +1,7 @@
+# 0.1.beta5 / August 31, 2011
+
+  * Refactored tasks heirarchy
+
 # 0.1.beta4 / August 31, 2011
 
   * `unicorn` command as method in `Runner`
