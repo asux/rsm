@@ -1,3 +1,8 @@
+# 0.1.beta3 / August 31, 2011
+
+  * `unicorn` command as method in `Runner`
+  * Added `environment` option for unicorn
+
 # 0.1.beta2 / August 31, 2011
 
   * Some code moved to `Rsm::Install::Base`
