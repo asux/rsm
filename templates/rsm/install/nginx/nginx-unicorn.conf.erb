@@ -1,30 +1,39 @@
 upstream <%= name %>_server {
-   server unix:<%= application_root %>/tmp/sockets/unicorn.sock fail_timeout=0; # Местоположение сокета должно совпадать с настройками файла config/unicorn.rb от корня вашего приложения.
+  server unix:<%= application_root %>/tmp/sockets/unicorn.sock fail_timeout=0; # socket path must be same with last one in #{application_root}/config/unicorn.rb
 }
 
 server {
-    listen 80; # Опять же, если на одном и том же ip находится несколько серверов, то эта строка будет выглядеть как-то так myapp.mydomain.ru:80
-    server_name <%= name %>.<%= domain %>; # Имя сервера
+  listen <%= name %>.<%= domain %>:80;
+  server_name <%= name %>.<%= domain %>;
 
-    client_max_body_size 1G; # Максимальный размер тела запроса (а простым языком - ограничение на размер заливаемого на сервер файла).
-    keepalive_timeout 5;
-    root <%= application_root %>/public; # Эта строка всегда должна указывать в директорию public Rails приложения. А current там потому что деплой происходит через Capistrano
+  client_max_body_size 1G;
+  keepalive_timeout 5;
+  root <%= application_root %>/public;
 
-    try_files $uri/index.html $uri.html $uri @<%= name %>; # Имя переменной не важно - главное, чтобы в блоке location ниже было аналогичное
+  try_files $uri/index.html $uri.html $uri @<%= name %>;
 
-    access_log <%= application_root %>/log/access.log;
-    error_log <%= application_root %>/log/error.log;
+  access_log <%= application_root %>/log/access.log;
+  error_log <%= application_root %>/log/error.log;
 
-    location @<%= name %> {
-        proxy_pass http://<%= name %>_server; # Часть после http:// должна полностью соответствовать имени в блоке upstream выше.
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $http_host;
-        proxy_redirect off;
+  location @<%= name %> {
+    <% if auth_basic %>
+    auth_basic            "<%= auth_basic_realm %>";
+    auth_basic_user_file  <%= auth_basic_user_file%>;
+    <% end %>
+
+    if (!-f $request_filename) {
+      proxy_pass http://<%= name %>_server;
+      break;
     }
 
-    error_page 500 502 503 504 /500.html;
-    location = /500.html {
-      root <%= application_root %>/public;
-    }
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+  }
+
+  error_page 500 502 503 504 /500.html;
+  location = /500.html {
+    root <%= application_root %>/public;
+  }
 }
 

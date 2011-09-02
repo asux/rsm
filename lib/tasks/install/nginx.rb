@@ -1,10 +1,14 @@
 module Rsm
   module Install
     class Nginx < Rsm::Base
-      attr_reader :domain
+      attr_reader :domain, :auth_basic, :auth_basic_realm, :auth_basic_user_file
 
       class_option :nginx_root, :default => "/etc/nginx", :aliases => "-n", :desc => "Nginx configuration root"
       class_option :domain, :aliases => "-d", :desc => "Server's domain"
+
+      class_option :auth_basic, :type => :boolean, :default => false, :aliases => "-a", :desc => "Use auth_basic"
+      class_option :auth_basic_realm, :desc => "auth_basic realm"
+      class_option :auth_basic_user_file, :default => "htpasswd", :desc => "auth_basic user file relative path"
 
       def set_destination_root
         self.destination_root = options[:nginx_root]
@@ -20,6 +24,12 @@ module Rsm
       def nginx_unicorn_config
         @domain = options[:domain]
         @domain = `hostname` unless @domain
+
+        @auth_basic = options[:auth_basic]
+        @auth_basic_realm = options[:auth_basic_realm]
+        @auth_basic_realm = name.to_s.capify unless @auth_basic_realm
+        @auth_basic_user_file = options[:auth_basic_user_file]
+
         template "nginx-unicorn.conf.erb", "sites-available.d/#{name}.conf"
       end
 

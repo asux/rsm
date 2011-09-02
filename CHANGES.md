@@ -1,3 +1,7 @@
+# 0.1.rc2 / TBA
+
+  * Added support of auth__basic in Nginx config
+
 # 0.1.rc1 / August 31, 2011
 
   * Refactored tasks heirarchy
