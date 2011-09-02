@@ -1,6 +1,8 @@
 # 0.1.rc2 / TBA
 
   * Added support of auth__basic in Nginx config
+  * Added support of www-subdomain rewriting in Nginx config
+  * Option `domain` now is absolute
 
 # 0.1.rc1 / August 31, 2011
 

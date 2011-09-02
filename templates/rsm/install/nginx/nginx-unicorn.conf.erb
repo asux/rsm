@@ -3,8 +3,8 @@ upstream <%= name %>_server {
 }
 
 server {
-  listen <%= name %>.<%= domain %>:80;
-  server_name <%= name %>.<%= domain %>;
+  listen <%= domain %>:80;
+  server_name <%= domain %><%= if rewrite_www then "www.#{domain}" end -%>;
 
   client_max_body_size 1G;
   keepalive_timeout 5;
@@ -16,10 +16,17 @@ server {
   error_log <%= application_root %>/log/error.log;
 
   location @<%= name %> {
-    <% if auth_basic %>
+    <% if auth_basic -%>
     auth_basic            "<%= auth_basic_realm %>";
     auth_basic_user_file  <%= auth_basic_user_file%>;
-    <% end %>
+    <% end -%>
+
+    <% if rewrite_www -%>
+    if ($host ~* www\.(.*)) {
+      set $host_without_www $1;
+      rewrite ^(.*)$ http://$host_without_www$1 permanent; # $1 contains '/foo', not 'www.mydomain.com/foo'}
+    }
+    <% end -%>
 
     if (!-f $request_filename) {
       proxy_pass http://<%= name %>_server;
