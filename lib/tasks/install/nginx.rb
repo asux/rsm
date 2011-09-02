@@ -34,7 +34,7 @@ module Rsm
       end
 
       def enable_nginx_site
-        link_file "#{destination_root}/sites-available.d/#{name}.conf", "sites-enabled.d/#{name}.conf"
+        link_file "#{destination_root}/sites-available.d/#{name}.conf", "sites-enabled.d/#{name}.conf" unless FileTest.symlink?("#{destination_root}/sites-enabled.d/#{name}.conf")
       end
 
     end
