@@ -24,7 +24,7 @@ module Rsm
 
       def nginx_unicorn_config
         @domain = options[:domain]
-        @domain = "#{application_name}.`hostname`" unless @domain
+        @domain = "#{application_name}.`hostname -f`" unless @domain
 
         @rewrite_www = options[:rewrite_www]
 

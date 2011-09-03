@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.homepage = 'https://github.com/asux/rsm'
   s.email = 'a.ulyanitsky@gmail.com'
   s.author = 'Oleksandr Ulianytskyi'
-  s.license = 'MIT'
+  s.license = 'BSD'
   s.version = Rsm::VERSION
   s.date = File.mtime(File.expand_path('VERSION',  File.dirname(__FILE__)))
   s.extra_rdoc_files = ['README.md', 'CHANGES.md', 'VERSION']
