@@ -13,6 +13,7 @@ This version can:
   * clone from Git repo or download and unpack Rails application from TGZ or TBZ2 archive
   * generate Unicorn config from template
   * start and stop unicorn server
+  * run bundle install and update
 
 Homepage
 --------
