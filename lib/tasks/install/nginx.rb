@@ -5,7 +5,7 @@ module Rsm
 
       class_option :nginx_root, :default => "/etc/nginx", :aliases => "-n", :desc => "Nginx configuration root"
       class_option :domain, :aliases => "-d", :desc => "Server's domain"
-      class_option :rewrite_www, :type => :boolean, :default => false, :desc => "Added www-subdomain rewriting"
+      class_option :rewrite_www, :type => :boolean, :default => false, :desc => "Use www-subdomain rewriting"
 
       class_option :auth_basic, :type => :boolean, :default => false, :aliases => "-a", :desc => "Use auth_basic"
       class_option :auth_basic_realm, :desc => "auth_basic realm or capitalized NAME unless set"
@@ -22,9 +22,12 @@ module Rsm
         end
       end
 
-      def nginx_unicorn_config
+      def nginx_server_config
         @domain = options[:domain]
-        @domain = "#{application_name}.`hostname -f`" unless @domain
+        unless @domain
+          @domain = `hostname -f`.strip
+          @domain = "#{name}.#{@domain}"
+        end
 
         @rewrite_www = options[:rewrite_www]
 
@@ -33,7 +36,7 @@ module Rsm
         @auth_basic_realm = name.to_s.capitalize unless @auth_basic_realm
         @auth_basic_user_file = options[:auth_basic_user_file]
 
-        template "nginx-unicorn.conf.erb", "sites-available.d/#{name}.conf"
+        template "nginx-server.conf.erb", "sites-available.d/#{name}.conf"
       end
 
       def enable_nginx_site

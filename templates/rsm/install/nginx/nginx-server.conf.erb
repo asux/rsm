@@ -1,10 +1,16 @@
 upstream <%= name %>_server {
-  server unix:<%= application_root %>/tmp/sockets/unicorn.sock fail_timeout=0; # socket path must be same with last one in #{application_root}/config/unicorn.rb
+<%- if socket_per_worker -%>
+  <%- (0...worker_processes).each do |n| -%>
+  server unix:<%= application_root %>/tmp/sockets/<%= server %>.<%= n %>.sock fail_timeout=0; # socket path must be same with last one in #{application_root}/config/unicorn.rb
+  <%- end -%>
+<%- else -%>
+  server unix:<%= application_root %>/tmp/sockets/<%= server %>.sock fail_timeout=0; # socket path must be same with last one in #{application_root}/config/unicorn.rb
+<%- end -%>
 }
 
 server {
   listen <%= domain %>:80;
-  server_name <%= domain %><%= if rewrite_www then "www.#{domain}" end -%>;
+  server_name <%= domain -%><%= if rewrite_www then "www.#{domain}" end -%>;
 
   client_max_body_size 1G;
   keepalive_timeout 5;
