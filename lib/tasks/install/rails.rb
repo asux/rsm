@@ -12,10 +12,6 @@ module Rsm
 
       class_option :worker_processes, :type => :numeric, :default => 2, :aliases => "-w", :desc => "Worker processes for use in Unicorn"
 
-      def set_destination_root
-        self.destination_root = application_root.to_s
-      end
-
       def download
         empty_directory "."
         inside application_root do

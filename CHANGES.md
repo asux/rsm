@@ -1,3 +1,9 @@
+# 0.1.1 / September 04, 2011
+
+  * Added `rsm:bundle:install` and `rsm:bundle:update` tasks
+  * Added `--verbose` [`-V`] option
+  * Default destionation root is application root
+
 # 0.1 / September 03, 2011
 
   * Added support of auth_basic in Nginx config

@@ -2,6 +2,29 @@ module Rsm
   module Actions
     TAR_OPTS = {:gz => '-z', :bz2 => '-j'}.freeze
 
+    def application_root
+      unless @application_root
+        @application_root = if options[:capistrano]
+          "#{options[:apps_root]}/#{name}/#{options[:capistrano]}/current"
+        else
+          "#{options[:apps_root]}/#{name}"
+        end
+        @application_root = Pathname.new(@application_root)
+        say "Application root: #{@application_root}" if options[:verbose]
+      end
+      @application_root
+    end
+
+    def run_ruby_binary(command, config = {})
+      rvmrc = application_root.join(".rvmrc")
+      with = if rvmrc.exist?
+        File.new(rvmrc).readline.strip + " exec"
+      else
+        "#{Thor::Util.ruby_command} -S"
+      end
+      run(command, config.merge(:with => with))
+    end
+
     # relative downloaded filename
     # *name*:: application name
     # *compressor*:: +:gz+ or +:bz2+
