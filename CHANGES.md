@@ -1,3 +1,7 @@
+# 0.1.3 / September 04, 2011
+
+  * Using socket_per_worker in nginx upstream server config
+
 # 0.1.2 / September 04, 2011
 
   * Added support of Thin server: generate config, start/stop/restart
