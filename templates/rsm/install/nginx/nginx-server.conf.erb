@@ -10,7 +10,7 @@ upstream <%= name %>_server {
 
 server {
   listen <%= domain %>:80;
-  server_name <%= domain -%><%= if rewrite_www then "www.#{domain}" end -%>;
+  server_name <%= domain -%><%= if rewrite_www then " www.#{domain}" end -%>;
 
   client_max_body_size 1G;
   keepalive_timeout 5;
