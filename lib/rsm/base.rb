@@ -7,7 +7,7 @@ module Rsm
 
     SERVERS = [:unicorn, :thin]
 
-    attr_reader :server, :worker_processes, :socket_per_worker
+    attr_reader :server, :worker_processess
 
     argument :name
 
@@ -35,7 +35,6 @@ module Rsm
     def set_server
       @server = options[:server].to_sym
       raise "Unknown server #{options[:server].inspect}. Available is #{SERVERS}" unless SERVERS.include?(server)
-      @socket_per_worker = (server == :thin)
     end
 
     def set_worker_processes
