@@ -10,9 +10,10 @@ RSM created for make easier some actons on server like:
 This version can:
 
   * create Nginx virtual server config from template
-  * automaticly enable Nginx virtual server config
   * clone from Git repo or download and unpack Rails application from TGZ or TBZ2 archive
+  * generate Unicorn config from template
   * start and stop unicorn server
+  * run bundle install and update
 
 Homepage
 --------
@@ -27,22 +28,28 @@ Created by Oleksandr (asux) Ulianytskyi
 License
 -------
 
-Source code has MIT license
+Source code has BSD license
 
 Installation
 ------------
 
 Install from RubyGems:
 
-    $ gem install rsm --pre
+    $ gem install rsm
+
+Or from source code:
+
+    $ git clone git://github.com/asux/rsm
+    $ cd rsm
+    $ rake install
 
 Ussage
 -----
 
 List avalable tasks:
-  
+
     $ rsm -T
-  
+
 Help for certain task:
 
     $ rsm help TASK

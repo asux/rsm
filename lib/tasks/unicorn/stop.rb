@@ -1,12 +1,13 @@
 module Rsm
   module Unicorn
     class Stop < Rsm::Base
-  
+
       def unicorn_rails
-        pidfile = application_root.join("tmp", "pids", "unicorn.pid")
-        run "kill $(cat #{pidfile})"
+        inside "." do
+          run "kill $(cat tmp/pids/unicorn.pid)"
+        end
       end
-      
+
     end
   end
 end

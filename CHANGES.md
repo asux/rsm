@@ -1,8 +1,23 @@
-# 0.1.rc2 / TBA
+# 0.1.3 / September 04, 2011
 
-  * Added support of auth__basic in Nginx config
+  * Using socket_per_worker in nginx upstream server config
+
+# 0.1.2 / September 04, 2011
+
+  * Added support of Thin server: generate config, start/stop/restart
+  * Fixed domain from hostname
+
+# 0.1.1 / September 04, 2011
+
+  * Added `rsm:bundle:install` and `rsm:bundle:update` tasks
+  * Added `--verbose` [`-V`] option
+  * Default destionation root is application root
+
+# 0.1 / September 03, 2011
+
+  * Added support of auth_basic in Nginx config
   * Added support of www-subdomain rewriting in Nginx config
-  * Option `domain` now is absolute
+  * Option `domain` now is absolute (or use `hostname -f`)
 
 # 0.1.rc1 / August 31, 2011
 

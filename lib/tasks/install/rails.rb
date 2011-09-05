@@ -1,7 +1,6 @@
 module Rsm
   module Install
     class Rails < Rsm::Base
-      attr_reader :worker_processes
 
       class_option :user, :aliases => "-u", :default => "git", :desc => "Owners's user"
       class_option :group, :aliases => "-g", :default => "git", :desc => "Owners's group"
@@ -9,12 +8,6 @@ module Rsm
       class_option :git, :desc => "Git repository URL"
       class_option :tgz, :desc => "Install from TGZ (tar.gz)"
       class_option :tbz2, :desc => "Install from TBZ2 (tar.bz2)"
-
-      class_option :worker_processes, :type => :numeric, :default => 2, :aliases => "-w", :desc => "Worker processes for use in Unicorn"
-
-      def set_destination_root
-        self.destination_root = application_root.to_s
-      end
 
       def download
         empty_directory "."
@@ -43,9 +36,21 @@ module Rsm
       end
 
       def unicorn_config
-        @worker_processes = options[:worker_processes]
         template "unicorn.rb.erb", "config/unicorn.rb"
       end
+      remove_task :unicorn_config
+
+      def thin_config
+        inside "." do
+          run_ruby_binary "thin config -C config/thin.yml -S tmp/sockets/thin.sock -s #{options[:worker_processes]} -e #{options[:environment]}"
+        end
+      end
+      remove_task :thin_config
+
+      def server_config
+        send("#{server}_config")
+      end
+
     end
   end
 end
