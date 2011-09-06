@@ -12,7 +12,8 @@ This version can:
   * create Nginx virtual server config from template
   * clone from Git repo or download and unpack Rails application from TGZ or TBZ2 archive
   * generate Unicorn config from template
-  * start and stop unicorn server
+  * start/stop/restart *unicorn* server
+  * start/stop/restart *thin* server
   * run bundle install and update
 
 Homepage
