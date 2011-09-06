@@ -1,3 +1,7 @@
+# 0.1.5 / September 06, 2011
+  
+  * Changed virtual host config filename for Nginx. It's now domain-based instead of name-based.
+
 # 0.1.4 / September 06, 2011
 
   * Added `rsm:unicorn:restart` task

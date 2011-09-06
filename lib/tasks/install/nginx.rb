@@ -36,11 +36,11 @@ module Rsm
         @auth_basic_realm = name.to_s.capitalize unless @auth_basic_realm
         @auth_basic_user_file = options[:auth_basic_user_file]
 
-        template "nginx-server.conf.erb", "sites-available.d/#{name}.conf"
+        template "nginx-server.conf.erb", "sites-available.d/#{domain}.conf"
       end
 
       def enable_nginx_site
-        link_file "#{destination_root}/sites-available.d/#{name}.conf", "sites-enabled.d/#{name}.conf" unless FileTest.symlink?("#{destination_root}/sites-enabled.d/#{name}.conf")
+        link_file "#{destination_root}/sites-available.d/#{domain}.conf", "sites-enabled.d/#{domain}.conf" unless FileTest.symlink?("#{destination_root}/sites-enabled.d/#{domain}.conf")
       end
 
     end
