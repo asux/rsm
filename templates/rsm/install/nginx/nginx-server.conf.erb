@@ -1,4 +1,4 @@
-upstream <%= domain %>_server {
+upstream <%= upstream_name %> {
 <%- if socket_per_worker -%>
   <%- (0...worker_processes).each do |n| -%>
   server unix:<%= application_root %>/tmp/sockets/<%= server %>.<%= n %>.sock fail_timeout=0; # socket path must be same with last one in #{application_root}/config/unicorn.rb
@@ -35,7 +35,7 @@ server {
     <%- end -%>
 
     if (!-f $request_filename) {
-      proxy_pass http://<%= name %>_server;
+      proxy_pass http://<%= upstream_name %>;
       break;
     }
 

@@ -1,7 +1,7 @@
 module Rsm
   module Install
     class Nginx < Rsm::Base
-      attr_reader :domain, :rewrite_www, :auth_basic, :auth_basic_realm, :auth_basic_user_file
+      attr_reader :domain, :rewrite_www, :auth_basic, :auth_basic_realm, :auth_basic_user_file, :upstream_name
 
       class_option :nginx_root, :default => "/etc/nginx", :aliases => "-n", :desc => "Nginx configuration root"
       class_option :domain, :aliases => "-d", :desc => "Server's domain"
@@ -35,6 +35,8 @@ module Rsm
         @auth_basic_realm = options[:auth_basic_realm]
         @auth_basic_realm = name.to_s.capitalize unless @auth_basic_realm
         @auth_basic_user_file = options[:auth_basic_user_file]
+
+        @upstream_name = "#{domain}_server"
 
         template "nginx-server.conf.erb", "sites-available.d/#{domain}.conf"
       end

@@ -1,3 +1,7 @@
+# 0.1.7 / September 12, 2011
+
+  * Fixed upsream name
+
 # 0.1.6 / September 12, 2011
 
   * Name of upsream server based on domain
