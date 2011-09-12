@@ -26,15 +26,6 @@ module Rsm
         end
       end
 
-      def permissions
-        inside "." do
-          empty_directory "log"
-          empty_directory "tmp"
-          run "chown #{options[:user]}:#{options[:group]} -R ."
-          run "chmod 755 log tmp"
-        end
-      end
-
       def unicorn_config
         template "unicorn.rb.erb", "config/unicorn.rb"
       end
@@ -51,6 +42,14 @@ module Rsm
         send("#{server}_config")
       end
 
+      def permissions
+        inside "." do
+          empty_directory "log"
+          empty_directory "tmp"
+          run "chown #{options[:user]}:#{options[:group]} -R ."
+          run "chmod 755 log tmp"
+        end
+      end
     end
   end
 end
