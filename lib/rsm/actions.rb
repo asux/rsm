@@ -15,18 +15,25 @@ module Rsm
       @application_root
     end
 
-    def run_ruby_binary(command, config = {})
+    def ruby_binary
       rvmrc = application_root.join(".rvmrc")
       with = if rvmrc.exist?
         File.new(rvmrc).readline.strip + " exec"
       else
         "#{Thor::Util.ruby_command} -S"
       end
-      run(command, config.merge(:with => with))
+      with
+    end
+
+    def run_ruby_binary(command, config = {})
+      run(command, config.merge(:with => ruby_binary))
     end
 
     def run_with_bundler(command, config = {})
-      run_ruby_binary("#{application_root}/bin/#{command}", config)
+      ruby_binary_with_bundler = "#{ruby_binary} bundle exec"
+      inside application_root do
+        run(command, config.merge(:with => ruby_binary_with_bundler))
+      end
     end
 
     # relative downloaded filename
