@@ -4,7 +4,7 @@ module Rsm
 
       def unicorn_rails
         inside "." do
-          run "kill $(cat tmp/pids/unicorn.pid)"
+          run "kill $(cat tmp/pids/unicorn.#{options[:environment]}.pid)"
         end
       end
 

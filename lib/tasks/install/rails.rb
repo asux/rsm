@@ -33,7 +33,7 @@ module Rsm
 
       def thin_config
         inside "." do
-          run_ruby_binary "thin config -C config/thin.yml -S tmp/sockets/thin.sock -s #{options[:worker_processes]} -e #{options[:environment]}"
+          run_with_bundler "thin config -C config/thin.yml -S tmp/sockets/thin.sock -s #{options[:worker_processes]} -e #{options[:environment]}"
         end
       end
       remove_task :thin_config
