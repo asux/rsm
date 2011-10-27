@@ -3,7 +3,7 @@ module Rsm
     class Start < Rsm::Base
 
       def thin_start
-        run_ruby_binary "thin start -C #{application_root}/config/thin.yml"
+        run_with_bundler "thin start -C #{application_root}/config/thin.yml"
       end
 
     end

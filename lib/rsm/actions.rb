@@ -25,6 +25,10 @@ module Rsm
       run(command, config.merge(:with => with))
     end
 
+    def run_with_bundler(command, config = {})
+      run_ruby_binary("#{application_root}/bin/#{command}", config)
+    end
+
     # relative downloaded filename
     # *name*:: application name
     # *compressor*:: +:gz+ or +:bz2+
