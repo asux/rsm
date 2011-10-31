@@ -1,3 +1,8 @@
+# 0.1.11 / October 31, 2011
+
+  * Added support for host/port or server
+  * Environment-depended config for thin
+
 # 0.1.7 / September 12, 2011
 
   * Fixed upsream name

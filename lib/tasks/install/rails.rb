@@ -2,12 +2,18 @@ module Rsm
   module Install
     class Rails < Rsm::Base
 
+      attr_reader :socket, :host, :port
+
       class_option :user, :aliases => "-u", :default => "git", :desc => "Owners's user"
       class_option :group, :aliases => "-g", :default => "git", :desc => "Owners's group"
 
       class_option :git, :desc => "Git repository URL"
       class_option :tgz, :desc => "Install from TGZ (tar.gz)"
       class_option :tbz2, :desc => "Install from TBZ2 (tar.bz2)"
+
+      class_option :socket, :aliases => "-S", :type => :boolean, :defualt => false, :desc => "Use socket"
+      class_option :host, :aliases => "-h", :default => "127.0.0.1", :desc => "Application server host binding"
+      class_option :port, :aliases => "-p", :default => 3000, :desc => "Application server port binding"
 
       def download
         empty_directory "."
@@ -26,14 +32,32 @@ module Rsm
         end
       end
 
+      def define_vars
+        @socket = options[:socket]
+        @host = options[:host]
+        @port = options[:port]
+      end
+
       def unicorn_config
         template "unicorn.rb.erb", "config/unicorn.rb"
       end
       remove_task :unicorn_config
 
       def thin_config
+        env = options[:environment]
         inside "." do
-          run_with_bundler "thin config -C config/thin.yml -S tmp/sockets/thin.sock -s #{options[:worker_processes]} -e #{options[:environment]}"
+          cmd = "thin config -C config/thin.#{env}.yml -s #{options[:worker_processes]} -e #{env} -l log/thin.#{env}.log -P tmp/pids/thin.#{env}.pid"
+          if socket
+            cmd << " -S tmp/sockets/thin.#{env}.sock"
+          else
+            if host
+              cmd << " -a #{host}"
+            end
+            if port
+              cmd << " -p #{port}"
+            end
+          end
+          run_with_bundler cmd
         end
       end
       remove_task :thin_config

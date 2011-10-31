@@ -3,7 +3,7 @@ module Rsm
     class Restart < Rsm::Base
 
       def thin_restart
-        run_ruby_binary "thin restart -C #{application_root}/config/thin.yml"
+        run_with_bundler "thin restart -C #{application_root}/config/thin.#{options[:environment]}.yml"
       end
 
     end

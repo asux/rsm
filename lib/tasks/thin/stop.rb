@@ -3,7 +3,7 @@ module Rsm
     class Stop < Rsm::Base
 
       def thin_stop
-        run_with_bundler "thin stop -C #{application_root}/config/thin.yml"
+        run_with_bundler "thin stop -C #{application_root}/config/thin.#{options[:environment]}.yml"
       end
 
     end
