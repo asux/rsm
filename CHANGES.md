@@ -1,6 +1,7 @@
-# 0.1.12 / HEAD
+# 0.1.12 / March 29, 2012
 
   * Fixed Nginx configuration generator: generates environment-aware paths
+  * Unicorn and Thin configuration files put to `shared` folder when _capistrano_ option not `false`
 
 # 0.1.11 / October 31, 2011
 
