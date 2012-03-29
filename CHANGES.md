@@ -1,3 +1,7 @@
+# 0.1.12 / HEAD
+
+  * Fixed Nginx configuration generator: generates environment-aware paths
+
 # 0.1.11 / October 31, 2011
 
   * Added support for host/port or server
