@@ -36,17 +36,22 @@ module Rsm
         @socket = options[:socket]
         @host = options[:host]
         @port = options[:port]
+        @config_dir = if options[:capistrano]
+                "../shared"
+              else
+                "config"
+              end
       end
 
       def unicorn_config
-        template "unicorn.rb.erb", "config/unicorn.rb"
+        template "unicorn.rb.erb", "#@config_dir/unicorn.rb"
       end
       remove_task :unicorn_config
 
       def thin_config
         env = options[:environment]
         inside "." do
-          cmd = "thin config -C config/thin.#{env}.yml -s #{options[:worker_processes]} -e #{env} -l log/thin.#{env}.log -P tmp/pids/thin.#{env}.pid"
+          cmd = "thin config -C #@config_dir/thin.#{env}.yml -s #{options[:worker_processes]} -e #{env} -l log/thin.#{env}.log -P tmp/pids/thin.#{env}.pid"
           if socket
             cmd << " -S tmp/sockets/thin.#{env}.sock"
           else
