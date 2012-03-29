@@ -11,7 +11,6 @@ Gem::Specification.new do |s|
   s.author = 'Oleksandr Ulianytskyi'
   s.license = 'BSD'
   s.version = Rsm::VERSION
-  s.date = File.mtime(File.expand_path('VERSION',  File.dirname(__FILE__)))
   s.extra_rdoc_files = ['README.md', 'CHANGES.md', 'VERSION']
   s.rdoc_options << '--main' << 'README.md' << '--line-numbers'
 
